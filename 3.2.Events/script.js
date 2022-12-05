@@ -7,6 +7,10 @@ const getElapsedTime = () => {
 const sections = document.querySelectorAll("section");
 const liste = document.querySelector("ul");
 
+const clickOnDisplayedSquare = (el) => {
+  alert("The color is " + el.target.classList[1]);
+}
+
 const clickOnSquare = (e) => {
   console.log(e.target.classList[1])
   console.log(getElapsedTime())
@@ -14,6 +18,10 @@ const clickOnSquare = (e) => {
   //carré sur lequel on a cliqué
   const newSquare = document.createElement("div");
   newSquare.className = "displayedsquare " + e.target.classList[1];
+  //ajouter l'évênement "afficher une alerte couleur quand on clique dessus"
+  //au moment où le carré est créé
+  newSquare.addEventListener('click', clickOnDisplayedSquare);
+  //console.log(newSquare);
   sections[0].appendChild(newSquare);
   //Ajouter l'évènement dans la liste des log
   const newLiLog = document.createElement("li");
@@ -23,6 +31,7 @@ const clickOnSquare = (e) => {
 }
 
 const actionSquares = document.querySelectorAll('.actionsquare')
+//console.log (actionSquares)
 for (let actionSquare of actionSquares) {
   actionSquare.addEventListener('click', clickOnSquare);
 }
@@ -44,51 +53,18 @@ const evenem = (ev) => {
   }
   //Quand la touche I est enfoncée
   if (ev.key == "I"){
+    //supprimer les log
     while (liste.children.length >0){
       liste.removeChild(liste.lastElementChild);
     }
   }
   //Quand la touche S est enfoncée
   if (ev.key == "s"){
+    //supprimer les carrés créés précédemment
     while (sections[0].children.length>0){
       sections[0].removeChild(sections[0].lastElementChild);
     }
   }
-  console.log(ev.code);
 }
 
 document.body.addEventListener('keydown',evenem);
-
-
-
-
-/*Lors de l'évènement "cliquer sur le carré vert",
-//création d'une div de classes "displayedsquare" et "green"
-//et ajout de cette div dans la première section
-actionSquares[0].addEventListener('click', apparaitreVert)
-function apparaitreVert(){
-  const newSquareGreen = document.createElement("div");
-  newSquareGreen.className = "displayedsquare green";
-  sections[0].appendChild(newSquareGreen);
-  const newLog = document.createElement("li");
-}
-
-//Lors de l'évènement "cliquer sur le carré violet",
-//création d'une div de classes "displayedsquare" et "violet"
-//et ajout de cette div dans la première section
-actionSquares[1].addEventListener('click', apparaitreViolet)
-function apparaitreViolet(){
-  const newSquareViolet = document.createElement("div");
-  newSquareViolet.className = "displayedsquare violet";
-  sections[0].appendChild(newSquareViolet);
-}
-
-//Lors de l'évènement "cliquer sur le carré orange",
-//création d'une div de classes "displayedsquare" et "orange"
-//et ajout de cette div dans la première section
-actionSquares[2].addEventListener('click', apparaitreOrange)
-function apparaitreOrange(){
-  const newSquareOrange = document.createElement("div");
-  newSquareOrange.className = "displayedsquare orange";
-  sections[0].appendChild(newSquareOrange);
-}*/
